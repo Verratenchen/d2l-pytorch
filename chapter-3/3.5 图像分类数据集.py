@@ -88,4 +88,3 @@ train_iter, test_iter = load_data_fashion_mnist(32, resize=64)
 for X, y in train_iter:
     print(X.shape, X.dtype, y.shape, y.dtype)
     break
-
