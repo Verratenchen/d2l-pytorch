@@ -14,17 +14,19 @@ b = torch.zeros(num_outputs, requires_grad=True)
 
 
 # 3.6.2
-X = torch.tensor([[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]])
-print(X.sum(0, keepdim=True), '\n', X.sum(1, keepdim=True))
+# sum 运算符沿特定维度求和
+# X = torch.tensor([[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]])
+# print(X.sum(0, keepdim=True), '\n', X.sum(1, keepdim=True))
 
 def softmax(X):
     X_exp = torch.exp(X)
     partition = X_exp.sum(1, keepdim=True)
     return X_exp / partition
 
-X = torch.normal(0, 1, (2, 5))
-X_prob = softmax(X)
-print(X_prob, '\n', X_prob.sum(1))
+# softmax 函数演示
+# X = torch.normal(0, 1, (2, 5))
+# X_prob = softmax(X)
+# print(X_prob, '\n', X_prob.sum(1))
 
 
 # 3.6.3
@@ -33,14 +35,16 @@ def net(X):
 
 
 # 3.6.4
-y = torch.tensor([0, 2])
-y_hat = torch.tensor([[0.1, 0.3, 0.6], [0.3, 0.2, 0.5]])
-print(y_hat[[0, 1], y])
+# 通过运算符选择所有元素
+# y = torch.tensor([0, 2])
+# y_hat = torch.tensor([[0.1, 0.3, 0.6], [0.3, 0.2, 0.5]])
+# print(y_hat[[0, 1], y])
 
 def cross_entropy(y_hat, y):
     return - torch.log(y_hat[range(len(y_hat)), y])
 
-print(cross_entropy(y_hat, y))
+# 交叉熵损失函数演示
+# print(cross_entropy(y_hat, y))
 
 
 # 3.6.5
@@ -51,7 +55,8 @@ def accuracy(y_hat, y):  #@save
     cmp = y_hat.type(y.dtype) == y
     return float(cmp.type(y.dtype).sum())
 
-print(accuracy(y_hat, y) / len(y))
+# 输出分类精度
+# print(accuracy(y_hat, y) / len(y))
 
 def evaluate_accuracy(net, data_iter):  #@save
     """计算在指定数据集上模型的精度"""
@@ -77,7 +82,8 @@ class Accumulator:  #@save
     def __getitem__(self, idx):
         return self.data[idx]
 
-print(evaluate_accuracy(net, test_iter))
+# 输出预测精度演示
+# print(evaluate_accuracy(net, test_iter))
 
 
 # 3.6.6
@@ -164,7 +170,9 @@ def updater(batch_size):
     return d2l.sgd([W, b], lr, batch_size)
 
 num_epochs = 10
-print(train_ch3(net, train_iter, test_iter, cross_entropy, num_epochs, updater))
+train_ch3(net, train_iter, test_iter, cross_entropy, num_epochs, updater)
+
+d2l.plt.show()
 
 
 # 3.6.7
@@ -179,4 +187,5 @@ def predict_ch3(net, test_iter, n=6):  #@save
         X[0:n].reshape((n, 28, 28)), 1, n, titles=titles[0:n]
     )
 
-print(predict_ch3(net, test_iter))
+predict_ch3(net, test_iter)
+d2l.plt.show()
