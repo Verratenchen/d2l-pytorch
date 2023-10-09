@@ -20,6 +20,10 @@ net.apply(init_weights)
 
 # 3.7.2
 # 从计算角度来看，指数可能会造成数值稳定性问题
+# 上溢(overflow)
+# 在继续softmax计算之前，先从所有o_k中减去max(o_k)
+# 下溢(underflow)
+# 在交叉熵损失函数中传递为规范化的预测，并同时计算softmax及其对数
 loss = nn.CrossEntropyLoss(reduction='none')
 
 
