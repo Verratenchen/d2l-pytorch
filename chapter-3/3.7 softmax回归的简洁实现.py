@@ -19,6 +19,7 @@ net.apply(init_weights)
 
 
 # 3.7.2
+# 从计算角度来看，指数可能会造成数值稳定性问题
 loss = nn.CrossEntropyLoss(reduction='none')
 
 
